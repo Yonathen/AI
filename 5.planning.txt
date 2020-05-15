@@ -1,0 +1,110 @@
+- Planning Systems 
+    - problem solving algorithms that operates on explicit 
+    propositional or relational representational
+- PDDL (Planning Domain Definition Language)
+    - Allows us to express 4.T.n.pow(2)
+    - Derived form original STRIPS Planning Language
+        (STanford Research Institute Problem Solver)
+    - Composition of Search Problem 
+        - Initial State
+        - Actions available in a state 
+        - Result of applying an action 
+        - Goal Test
+        
+    - Database Semantics (Closed-World assumption) : Any fluents that 
+    are not mentioned are  false and unique name assumption means that 
+    Truck1 and Truck2 are distinct
+
+    - PDDL just specifies the the result of na action in terms of 
+    what changes ; everything that stays the same is unmentioned.
+
+    - Action schema : set of ground actions can be represented by a 
+    single action schema
+        - Schema : lifted representation
+            - lifts the level of reasoning from propositional logic
+            to a restricted subset of first-order logic
+        - Precondition 
+        - Effect
+            Action ( Fly (p, from, to),
+                Precond: At(p, from)  && Plane(p) && Airport(from) && Airport(to) 
+                Effect: ┐At(p, from) && At(p, to))
+    - Applicable : An action A is applicable in state S if preconditions are 
+    satisfied by S 
+        - When an action schema A contains variables, it may have multiple 
+        applicable instantiations
+
+    - Propositionalize PDDL
+        - SATPlan
+    - Planing domain : a set of action schemas
+    - Initial State : A conjunction of ground atoms 
+        (Any atoms that are not mentioned are false)
+    - Goal : just like preconditions
+
+- Algorithms
+    - Forward state space search
+        - search through the state space from initial state and using 
+        the problem's actions to search forward for a member of the 
+        set of goal states.
+        - not complete 
+        - slow
+    - Backward state space search
+        - search through the relevant states starting at the set of states
+        representing the goal and using the inverse of the actions to search
+        backward for initial state
+    - Backward (regression) relevant-state search
+        - relevant-state : only considers the actions relevant to the goal
+        - relevant
+    - Heuristics for Planning
+        - Ignore preconditions Heuristics :  drop all preconditions
+            every actions becomes applicable 
+            (1) some actions may achieve multiple goals
+            (2) some actions may undo the effects of another
+
+        - Set-Cover Problem : Fer accurate Heuristics
+            - Consider (1) and ignore (2)
+        - State abstraction
+        - Decomposition
+        - Subgoal independence
+- Partially Ordered Plans
+    - Independently face different sub-goals
+    - Solve different sub-goals via different sub-Plans
+    - Integrate the sub-plans into a final plan 
+    - Advantage
+        - work on several sub-goals independently
+        - work on important decisions first rather than 
+        being forced to work on steps in chronological order 
+        - Postpone some choices, in order to focus on 
+        evident decisions then refine
+
+    - Plan consists 
+        - Start step : has the initial state description as its effect 
+        - Finish step : has the goal description as its precondition 
+        - Casual links : from outcome of one step to precondition of another
+        - Open condition : precondition of a step not yet causally linked
+        - Temporal ordering : between pairs of steps
+        - Ordering Constraints : A must be executed somehow before action B 
+        - Cycle represent contradictions
+    
+    - A plan is complete iff every precondition is achieved 
+    - A precondition is achieved iff it is the effect of an earlier step
+    and no possible intervening step undoes it.
+
+    - POP Algorithms    (Partially Ordered Plan )
+        - Plan the space search 
+        - Formulate planning as state space search problem 
+            - State : Unfinished plan 
+            - Action : steps added for completion
+            - Goal : Finished Plan
+            - Nodes : partial Plans
+            - Archs : plan refinements
+            - Solution : Node (not a path)
+    
+    - consistent plan contains no cycle in ordering constraints and no 
+    conflict with causal links
+    - consistent plan with no open preconditions is a solution
+
+    - POP is sound - complete - systematic (nor repetition) 
+
+
+    
+

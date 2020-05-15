@@ -1,0 +1,243 @@
+- Knowledge Based Agents
+    - knowledge base (KB) : is a set of sentences.
+        - each sentence is expressed in a language called a knowledge
+        representation language
+        - represents some assertion about the world
+        - Sometimes they are dignified as Axiom
+        - Axiom : when a sentence is taken as given without being derived
+        from another sentence.
+        - Inference : driving a new sentence from the old
+            - when one ask a question, the answer should follow from 
+            what has been told to the knowledge base previously
+        - TELL and ASK : standard names used for operation to insert and
+        query a knowledge base (KB)
+        - Each time when the agent program is called it has to do 
+        there things 
+            - First : Tells the KB what it perceived
+            - Second : Ask KB what action to take 
+            - Third : Tells what action is chosen and execute the action 
+        - the details of the representation language are hidden in 
+        three functions that implements the interface between the 
+        sensors and actuators on one side
+            - MAKE-PERCEPT-SENTENCE
+                - Construct a sentence asserting that the agent
+                perceived the given percept
+            - MAKE-ACTION-QUERY
+                - Construct a sentence asserting what action to be
+                done at current time
+            - MAKE-ACTION-SENTENCE
+                - Construct a sentence asserting the chosen action 
+                is executed
+
+        function kbAgent( percept: Percept ): Action {
+            KB; // knowledge base
+            t; // counter initially 0
+
+            TELL(KB, MAKE-PERCEPT-SENTENCE(percept, t));
+            action = ASK(KB, MAKE-ACTION-QUERY(t));
+            TELL(KB, MAKE-ACTION-SENTENCE(action, t));
+
+            t++;
+
+            return action;
+        }
+    - Knowledge Level : a level where we specify what the agent knows and
+    what its goal are, in order to fix the behavior
+    - Implementation level : 
+    - Approach for building of knowledge-based agent
+        - Declarative : Designer starts from empty and TELL sentences one by one 
+        until the agent knows everything on how to operate in the envt
+        - Procedural : encodes desired behaviors directly as program code 
+    - The agent must be able to 
+        - Represent states, actions
+        - Incorporate new percepts 
+        - Update internal representation of the world
+        - Deduce hidden properties of the world
+        - Deduce appropriate actions
+
+- Logic 
+    - sentence : representation language which specifies all sentences that are 
+    well formed
+    - semantics : meaning of a sentence
+        - defines the truth of each sentence with respect to the possible world
+        - example : x + y = 4 
+            - True : in world where x = 2 and y = 2
+            - False : in world where x = 1 and y = 1
+        - Mode : used to refer to "possible world" precisely
+            - Mathematical abstractions, each of which defines the truth or false hood 
+            of relevant sentence
+            - possible models : are all possible assignments of values
+                - M(A) means the set of all modes of sentence A
+            - In a sentence A
+                - If sentence A is true in model m, 
+                    -  then we say that m satisfies A or (m is a model of A)
+        - Entailment ( A |= B ) : sentence A follows logically from B
+            - A |= B if and only if in every model in which A is true, B is also true
+                Thus A |= B if and only if M(A) is a subset of M(B)
+    - KB can be thought of as a set of sentences or a single sentence that asserts all 
+    individual sentences.
+        - KB is false in models that contradict what the agent knows
+
+    - Understanding Entailment and Inference
+        - Think of 
+            - KB as haystack
+            - A as needle
+        - Entailment: is like the needle is in haystack
+        - Inference: is like finding it
+            - If an inference algorithm i can derive A from KB we write
+                KB ├─i A ( pronounced as "A is derived from KB by i" or "i derives A from KB")
+            - An inference algorithm that that derives only entailed sentences is called
+            sound and truth-preserving
+                - Soundness is a highly desirable property.
+                    - Unsound inference procedure essentially makes things up as it goes along
+                        - Announces the discovery of nonexistent needles.
+            - An inference that derives every sentence that is entailed is Complete
+                - Completeness is also highly desirable property
+        
+        - Grounding : Connection between the logical reasoning and real world
+    
+
+                Sentence -------------------→ Sentence
+     Representation |                             |
+            --------|-----------------------------|------------
+     World          |                             |
+                    ↓                             ↓
+            Aspect of Real World             Aspect of Real World
+        
+- Propositional Logic
+    - Syntax : defines the allowable sentences
+    - Atomic sentences : sentence consist of a single propositional Symbol
+    - Propositional Symbol : Symbol that can be true or false
+    - Complex Sentence : constructed from simpler senctences, using parenthesis and logical 
+    connectives. 
+        - Logical Connectives
+            - Negation : NOT
+                - Literal : an atomic sentence (positive or negative literals)
+            - Conjunction : AND : to be true both must be true
+            - Disjunction :  OR : to be false both must be false
+            - Implication : if...then : to be false the Premise true and Conclusion is false
+            - Biconditional : if and only if : to true both must have same values
+    - Semantics
+        - Truth values
+    - Simple knowledge base (WUMPS World)
+        - Define the symbols
+            - P(x, y) : true if there is Pit on [x, y]
+            - W(x, y) : true if there is Wumpus on [x, y]
+            - B(x, y) : true if there is Breeze on [x, y]
+            - S(x, y) : true if there is Smell on [x, y]
+        - Define the sentences
+            - R1 : ┐P(1,1) : no pit on start 
+            - R2 : B1,1 <=> ( P1,2 || P2,1) : Breeze in 1,1 iff Pit on 1,2 or 2,1
+            ...
+    - Simple inference procedure
+        //  TO DO : Read Form Book
+    - Propositional theorem proving 
+        - theorem proving : used to avoid model checking
+        - logical equivalence : two sentences A and B are true if they are true in the 
+        same set of models.
+            A ­­­­=== B iff A |= B and B |= A 
+        - validity OR tautologies: if its true in all model
+        - deduction theorem : For any sentences A and B 
+            A |= B iff A => B is valid 
+        - satisfiability
+            - A sentences is said to be satisfiable if there exists at least one 
+            model that satisfies it
+            - SAT : problem of determining satisfiability.
+             
+        - proof by contradiction
+            - Let A and be are sentences
+            - Then A |= B iff (A && ┐B) is unsatisfiable
+        - Inference and proof
+            // TO DO : Read
+        - proof by resolution
+            // TO DO : Read
+- Effective Propositional model checking
+    - Efficient algorithms for general propositional inference
+        - Backtracking search
+            - Davis–DAVIS–PUTNAM Putnam algorithm,
+                - First algorithm to consider is Davis-Putnam algorithm
+                    - Four Authors Davis, Putnam, Logemann, Loveland 1962
+                    - Algorithm is called DPLL (after the initials of Authors)
+                - Takes as an input a sentence in Conjunction Normal Form (Set of clauses)
+                - Like BACKTRACKING-SEARCH and TT-ENTAILS
+                - Essentially a recursive depth-first enumeration of possible models
+                - improvements from simple of TT-ENTAILS
+                    - Early termination : Algorithm detects weather the statment is true or 
+                    false even with partially completed model.
+                    - Pure Symbol Heuristic 
+                        - Pure Symbol : is a symbol that always appears with the same "sign"
+                            example: in ( A || !B ), ( !B || !C ) and ( A || C)
+                                - A is a pure symbol
+                                - B is a pure symbol
+                        - 
+                    - Unit clause heuristic : 
+        - Hill-climbing search
+- Logical Agent 
+        
+    - First Step : enable agent to deduce to the extent possible the state of the 
+    world given its percept history 
+    - Second Step : The agent usage of logical inference to construct plans that are 
+    guaranteed to achieve goals
+    - Logical agent operates by deducing what to do from KB of sentences about the world
+    - KB is composed of Axioms
+        - General knowledge about how the world works 
+        - Percept sentences obtained from the agent's experience in particular world
+        - Axiom for Wumpus world
+            - B1,1 <=> (P1,2 || P2,1)
+            - S1,1 <=> (W1,2 || W2,1)
+            ....
+            - (W1,1 || W1,2 || ... || W4,3 || W4,4) : Because there is exactly one Wumpus
+            - We have to say that there is at most one Wumpus
+                - ┐W1,1 || ┐W1,2
+                - ┐W1,1 || ┐W1,3
+                ....
+                - ┐W4,3 || ┐W4,4
+
+    - Agent Based on prepositional Logic
+        - Fluent : aspect of the world that changes
+        - Atemporal Variable : symbol associated with permanent aspect of the world
+        that do not need time superscript.
+        - Effect Axioms : specifies the outcome of an action at the next time Step
+        - Frame Axioms : explicitly asserts all propositions that remain the same
+        - Successor state axioms : shows all True and False possibilities of a rule
+            - ex: HaveArrow(t+1) <=> (HaveArrow(t) && ┐Shoot(t))
+
+    - Frame problem
+        - Representational Frame problem
+            - The difficulty of generating truths about the current environment
+                - example : How can one program the notions of up and down?
+                    - these are relative to each other 
+                    - can not be simply described by direction
+                    - to partially certify this problem, Successor-state axiom 
+                    are used 
+
+        - Inferential Frame problem
+            - The difficulty with examining the methods by which the world is 
+            judged is Inferential problem
+                - General Purpose : inspect the entire world of things that are changing
+                - Special Purpose : inspect actions that can modify over small area of surroundings
+        - Qualification problem
+            - Impossibility of listing all the preconditions required for a real world
+            action to have its intended effect.
+
+- Propositional logic does not scale to envt of unbounded size
+    - because it lacks expressive power to deal concisely with 
+        - Time
+        - Space 
+        - Universal Pattens of Relationships among objects
+
+
+
+
+
+
+
+                 
+                    
+
+            
+
+
+             
+
+

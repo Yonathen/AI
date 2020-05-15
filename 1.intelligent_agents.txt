@@ -1,0 +1,173 @@
+- What is AI?
+    - The automation of activities that we associate with human 
+    thinking, activities such as decision-making, problem solving
+    , learning
+    - The study of how to make computers do things at which 
+    at the moment people are better
+    - The branch of computer science that is concerned with the
+    automation of intelligent behaviour
+    - The study  of mental faculties through the use of 
+    computational models
+
+- Agents and environments
+    - Touring test
+        - designed to provide a satisfactory operational 
+        definition of intelligence
+        - A computer passes the test if a human interrogator, 
+        after posing some written questions, cannot tell whether 
+        responses come from a person or a computer
+        - The computer would need to possess the following capabilities
+            - natural language processing : to enable it to 
+            communicate successfully in English
+            - knowledge representation : to store what it knows or hears
+            - automated reasoning : to use the stored information to 
+            answer questions and to draw new conclusions
+            - machine learning : to adapt to new circumstances 
+            and to detect and extrapolate patterns
+
+    - Views of AI falls into four category
+        - Thinking humanly: cognitive modeling approach
+            - to study the actual working of human minds
+                - psychological experiment : observing a person in 
+                action; and through 
+                - brain imaging : observing brain in action.
+                - introspection : trying to catch our own thought as 
+                they go by
+        - Acting Humanly
+            - Turing Test 
+            - If "Can machine think?" then "Can machines behave intelligently?"
+
+        - Thinking rationally
+            - Normative or prescriptive rather than descriptive
+
+            - Not all intelligent behaviors is mediated by logical deliberation
+            - What is the purpose of thinking? What thoughts should I have?
+
+        - Acting rationally : the rational agent approach
+            - Rational behavior: doing the right thing
+                - Right thing is expected to maximize goal achievement
+                given the available information
+            - Doesn't necessarily involve thinking
+                - eg blinking reflex: but should rationally action
+        
+    - Rational Agent
+        - An agent is something that perceives and acts
+        - A rational agent is the one that acts to achieve the 
+        best outcome
+- Intelligent Agent
+    - PAGE (Percepts, Actions, Goals, Environment)
+        - Percepts : refer to the agents perceptual inputs at any given
+        instance of time
+            - Percept sequence is the complete history of everything 
+            the agent has ever perceived
+    - Performance Measure: evaluates the behaves in an environment
+    - Task environment: specifications includes performance measure
+        external environment, actuators, and sensors
+    - Rational Agents 
+        - Goals are specifiable by performance measure defining a numerical
+        value for any environment history
+        - Rational actions is whichever action maximizes the expected
+        value of the performance measure given the percept sequence to date
+            Rationality != Omniscient
+            Rationality != Clairvoyant
+            Rationality != Successful
+    - Environment types
+        - Competitive Vs Cooperative in multi agent environment
+            - Chess is a competitive environment
+            - Cooperative is something like taxi driving 
+        - Deterministic Vs Stochastic
+            - Deterministic: if the next state of envt can be completely
+            determined by the current state and action executed by the agent
+            - Stochastic: otherwise its Stochastic (if the environment is uncertain)
+                - Taxi driving
+        - Episodic Vs sequencial
+            - Episodic: the agent experience is divided into small atomic episodes
+                - the next episode doesnot depend on the actions taken by previous episode
+            - Sequential: the current action could affect all future actions
+
+        - Discrete Vs Continuous
+            - This distinction applies to the state of the environment, the way time is 
+            handled, and to the Percepts and actions of the agent
+            - Discrete
+                - Chess : has discrete set of percept s and actions 
+            - Continuous
+                - Taxi Driver : Continuous-State and Continuous-Time problem
+                    - speed and location of the taxi
+            
+    - Agent program
+        Agent = Agent + Architecuter
+        - The job of AI is to design an agent program
+        - We assume this agent program runs in some architecture
+    
+        - an agent is completely specified by by agent function
+        mapping percept sequence to actions
+        - One agent function is rational
+        - An agent program takes a single percept as input, keeps internal state
+
+            function skeletonAgent(percept): action {
+                static: memory, the agent's memory
+
+                memory<-updateMemory(memory, percept)
+                action<-choseBestAction(memoy)
+                memory<-updateMemory(memory, action)
+
+                return action
+            }
+            
+        - AIMA Code  
+            - The code for each topic is divided into four catagories
+                - agents: code for defining the agent types and programs
+                - algorithms: code for the methods used by the agent programs
+                - environments: code for defining environment types, simulations
+                - domain: problem types, and instances for input to algorithms
+            
+    - Agent types
+        - Four basic types 
+            - Simple reflex agents :  responds drectly to the Percepts
+                - Sensor get input form envt
+                - Check what the world is now
+                - What action  I should do now?
+                - Effectors act on envt
+
+            - reflex agents with state :  Maintain internal state to track aspects
+            of the world that are not evident to the current percept
+                - Sensor get input form envt
+                - Check what the world is now
+                    - check for the state
+                    - How the world evolves
+                    - What my actions do
+                - What action  I should do now?
+                    - Condition action rules
+                - Effectors act on envt
+            - goal-based agents: act to achive their goal
+                - Sensor get input form envt
+                - Check what the world is now
+                    - check for the state
+                    - How the world evolves
+                    - What my actions do
+                - What the world will be like if I do action A
+                    - How the world evolves
+                    - What my actions do
+                - What action  I should do now?
+                    - Goals
+                - Effectors act on envt
+
+            - utility-based agents
+                - Sensor get input form envt
+                - Check what the world is now
+                    - check for the state
+                    - How the world evolves
+                    - What my actions do
+                - What the world will be like if I do action A
+                    - How the world evolves
+                    - What my actions do
+                - How happy I will be in such a state
+                    - utility
+                - What action  I should do now?
+                - Effectors act on envt
+    - Vacuum world
+
+
+
+    
+        
